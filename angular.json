@@ -23,8 +23,9 @@
               "src/assets"
             ],
             "styles": [
+              "src/assets/css/bootstrap/bootstrap.min.css",
               "src/styles.css",
-              "src/assets/css/bootstrap/bootstrap.min.css"
+              "src/assets/css/colors/default-dark.css"
             ],
             "scripts": [],
             "es5BrowserSupport": true

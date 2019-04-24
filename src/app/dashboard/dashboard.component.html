@@ -1,3 +1,11 @@
-<p>
-  dashboard works!
-</p>
+<div id="main-wrapper">
+  <app-navbar [user]='userData'></app-navbar>
+  <app-sidebar [user]='userData' [routes]="routes"></app-sidebar>
+  
+  <div class="page-wrapper" style="min-height: 651px;">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

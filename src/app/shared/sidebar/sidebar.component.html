@@ -1,0 +1,43 @@
+<aside class="left-sidebar">
+  <!-- Sidebar scroll-->
+  <div class="scroll-sidebar ps ps--theme_default ps--active-y">
+    <nav class="sidebar-nav active">
+      <ul id="sidebarnav" class="in">
+        <li class="user-profile">
+          <a class="has-arrow waves-effect waves-dark">
+            <img src="../assets/images/users/{{ user['photo'] }}" alt="user">
+            <span class="hide-menu">{{ user['nombres'] }}</span>
+          </a>
+          <ul aria-expanded="false" class="collapse">
+            <li><a href="javascript:void()">My Profile </a></li>
+            <li><a routerLink="/logout">Salir</a></li>
+          </ul>
+        </li>
+        <li class="nav-devider"></li>
+        <!-- Menu principal de la aplicacion -->
+        <!-- TODO: Pendiente el order de los recursos y el link para cada uno de los enlaces -->
+        <li *ngFor="let route of routes">
+          <a class="waves-effect waves-dark">
+            <i [class]="route.icon"></i>
+            <span class="hide-menu"> {{ route.nombre }} </span>
+          </a>
+        </li>
+
+        <li>
+          <a class="waves-effect waves-dark" routerLink="/logout">
+            <i class="mdi mdi-logout"></i>
+            <span class="hide-menu"> Salir </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- End Sidebar navigation -->
+    <div class="ps__scrollbar-x-rail" style="left: 0px; bottom: 0px;">
+      <div class="ps__scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+    </div>
+    <div class="ps__scrollbar-y-rail" style="top: 0px; height: 537px; right: 0px;">
+      <div class="ps__scrollbar-y" tabindex="0" style="top: 0px; height: 296px;"></div>
+    </div>
+  </div>
+  <!-- End Sidebar scroll-->
+</aside>

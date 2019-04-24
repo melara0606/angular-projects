@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 // Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -10,21 +11,34 @@ import { HttpClientModule } from '@angular/common/http';
 // components
 import { LoginComponent } from './login/login.component';
 import { LoadingComponent } from './loading/loading.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { LogoutComponent } from './logout/logout.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
-    LoadingComponent
+    LoadingComponent,
+    NavbarComponent,
+    SidebarComponent,
+    LogoutComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
+    RouterModule,
     ReactiveFormsModule
   ],
   exports: [
     LoginComponent,
-    LoadingComponent
+    LoadingComponent,
+    NavbarComponent,
+    SidebarComponent,
+    LogoutComponent,
+    FooterComponent
   ]
 })
 export class SharedModule { }

@@ -59,6 +59,8 @@ File: scss
  @import url(./assets/css/animate.css);
  * {
    outline: none; }
+
+.mini-sidebar #navbarBrand { display: none; }
  
  body {
    background: #fff;

@@ -22,11 +22,7 @@ export class LoginService {
   }
 
   isAuthenticated(): boolean {
-    return !this.jwtHelper.isTokenExpired( this.getTokenLocalStorage() );
-  }
-
-  isViewTokenDecode() {
-    return this.jwtHelper.decodeToken( this.getTokenLocalStorage() );
+    return !this.jwtHelper.isTokenExpired(this.getTokenLocalStorage());
   }
 
   setTokenLocalStorage(token: string, TYPE: string = 'SET') {
@@ -39,5 +35,20 @@ export class LoginService {
 
   getTokenLocalStorage() {
     return (window.localStorage.getItem('token'));
+  }
+
+  getRoutesApplication() {
+    const decoded = this.jwtHelper.decodeToken(this.getTokenLocalStorage());
+    return decoded.data[1];
+  }
+
+  getUserData() {
+    const { $usuario, $personal } = this.jwtHelper.decodeToken(this.getTokenLocalStorage()).data[0];
+    return {
+      nombres   : $personal.nombres_personal,
+      apellidos : $personal.apellidos_personal,
+      email     : $usuario.email,
+      photo     : $usuario.photo
+    };
   }
 }

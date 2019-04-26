@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 
 // Forms
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -38,7 +38,8 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     SidebarComponent,
     LogoutComponent,
-    FooterComponent
+    FooterComponent,
+    RouterModule
   ]
 })
 export class SharedModule { }

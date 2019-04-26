@@ -13,6 +13,10 @@ Preloader
     top: calc(50% - 3.5px);
     left: calc(50% - 3.5px);
   } */
+  top:0px;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
 }
 
 .loader,

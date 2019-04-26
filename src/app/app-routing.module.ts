@@ -1,20 +1,24 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AuthGuardService } from './services/auth.guard.service';
+// Components
 import { LoginComponent } from './shared/login/login.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LogoutComponent } from './shared/logout/logout.component';
+import { Error403Component } from './redirect/error403/error403.component';
+
+// services
+import { AuthGuardService } from './services/auth.guard.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
+  { path: 'error403', component: Error403Component },
   {
     path: '',
-    component: DashboardComponent,
-    canActivate: [AuthGuardService]
+    loadChildren: './dashboard/dashboard.module#DashboardModule',
+    canLoad: [ AuthGuardService ]
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

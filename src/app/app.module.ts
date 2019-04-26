@@ -1,38 +1,56 @@
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
+// routes app
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // Modulo de JwtModule
 import { JwtModule } from '@auth0/angular-jwt';
 
+// Store and reducers app
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from './app.reducers';
+import { effectsArray } from './stores/effects';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 // Modulos personalizados
-import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './interceptors/AuthInterceptor';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
+import { SharedModule } from './shared/shared.module';
+
+// enviroment
 import { environment } from 'src/environments/environment';
+import { Error403Component } from './redirect/error403/error403.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent
+    Error403Component
   ],
   imports: [
+    FormsModule,
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    FormsModule,
+    // DashboardModule,
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => window.localStorage.getItem('token'),
         whitelistedDomains: [environment.server]
       }
-    })
+    }),
+    StoreModule.forRoot(appReducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production
+    }),
+    EffectsModule.forRoot( effectsArray )
   ],
   providers: [
     {

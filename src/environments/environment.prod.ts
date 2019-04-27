@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  server: 'http://api.belive.edu.sv/v1'
 };

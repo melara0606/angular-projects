@@ -1,3 +1,4 @@
+import { LoginService } from './login.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -12,6 +13,12 @@ export class UsuariosService {
   ) { }
 
   getUsuarios() {
-    return this.http.get('usuarios').pipe(map((data) => data['records']));
+    return this.http.get('usuarios').pipe(map((data) => {
+      return data['records'];
+    }));
+  }
+
+  updateUsuarioState(usuarioCod: string) {
+    return this.http.delete(`usuarios/${usuarioCod}`).pipe(map((data) => data['record']));
   }
 }

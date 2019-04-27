@@ -4,7 +4,9 @@ import { LoginService } from 'src/app/services/login.service';
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
-  styles: []
+  styles: [`
+    a.waves-effect.active { background-color: transparent; }
+  `]
 })
 export class SidebarComponent {
   @Input() user: object;

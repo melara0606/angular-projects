@@ -8,7 +8,8 @@ function init_plugins() {
     $(function () {
         // Dropdown
         $('.dropdown-toggle').dropdown();
-
+        $(function(){ $('[data-toggle="tooltip"]').tooltip(); })
+        
         // ============================================================== 
         // This is for the top header part and sidebar part
         // ==============================================================  
@@ -62,9 +63,9 @@ function init_plugins() {
         // ============================================================== 
         // Auto select left navbar
         // ============================================================== 
-        $(function() {
+        $(function () {
             var url = window.location;
-            var element = $('ul#sidebarnav a').filter(function() {
+            var element = $('ul#sidebarnav a').filter(function () {
                 return this.href == url;
             }).addClass('active').parent().addClass('active');
             while (true) {
@@ -94,7 +95,7 @@ function init_plugins() {
         // ============================================================== 
         // To do list
         // ============================================================== 
-        $(".list-task li label").click(function() {
+        $(".list-task li label").click(function () {
             $(this).toggleClass("task-done");
         });
 

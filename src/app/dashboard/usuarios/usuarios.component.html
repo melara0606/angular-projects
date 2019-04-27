@@ -1,1 +1,85 @@
 <app-loading *ngIf="loading"></app-loading>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-body">
+        <div class="card-title">Usuarios</div>
+        <h6 class="card-subtitle">
+          Mantenimiento para los usuarios
+        </h6>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Usuario</th>
+                <th>Perfil</th>
+                <th>Nombre Personal</th>
+                <th>Estado</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of usuarios; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.nombrePerfil }}</td>
+                <td>{{ item.nombres_personal }} {{ item.apellidos_personal }}</td>
+                <td>
+                  <div [ngClass]="{ 
+                    'label-danger' : item.estado == 0, 'label-info' : item.estado == 1 
+                  }" class="label label-table">
+                    {{ (item.estado == 1) ? 'Activo' : 'Inactivo' }}
+                  </div>
+                </td>
+                <td>
+                  <div class="btn-group" role="group" aria-label="operaciones">
+                    <button (click)="darBajaOrActivar( item );" data-toggle="tooltip" data-placement="top" 
+                      title="Activar/Desactivar usuario" type="button" *ngIf="routes.includes('usuario.eliminar')"
+                      class="btn waves-effect waves-light btn-danger">
+                      <i class="ti-trash"></i>
+                    </button>
+
+                    <button *ngIf="routes.includes('usuario.editar')" (click)="editPerfil(item);"  data-toggle="tooltip" data-original-title="Editar perfil" type="button" class="btn waves-effect waves-light btn-info">
+                      <i class="ti-user"></i>
+                    </button>
+
+                    <button *ngIf="routes.includes('usuario.editar')" data-toggle="tooltip" data-original-title="Editar contraseña" type="button" class="btn waves-effect waves-light btn-info">
+                      <i class="ti-key"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Profile update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of birth</label>
+        <div class="input-group">
+          <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker />
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" type="button"></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+  </div>
+</ng-template> -->

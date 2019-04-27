@@ -26,22 +26,29 @@ import { SharedModule } from './shared/shared.module';
 import { environment } from 'src/environments/environment';
 import { Error403Component } from './redirect/error403/error403.component';
 
+// Bootstrap Module
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+export function tokenGetterFunction() {
+  return localStorage.getItem('access_token');
+}
+
 @NgModule({
   declarations: [
     AppComponent,
     Error403Component
   ],
   imports: [
+    NgbModule,
     FormsModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     SharedModule,
-    // DashboardModule,
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => window.localStorage.getItem('token'),
+        tokenGetter: tokenGetterFunction,
         whitelistedDomains: [environment.server]
       }
     }),

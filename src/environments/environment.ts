@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   server: 'http://localhost:8080/v1/modulos'
+  // server: 'http://api.belive.edu.sv/v1'
 };
 
 /*

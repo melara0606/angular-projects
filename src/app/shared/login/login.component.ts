@@ -44,11 +44,11 @@ export class LoginComponent {
       }
     }, (response) => {
       this.loading = false;
-      const { title } = response.error;
+      const { message } = response.error;
       Swal.fire({
         title: 'Error!',
         type: 'error',
-        text: title,
+        text: message,
         confirmButtonText: 'Ok ;('
       });
       f.reset({

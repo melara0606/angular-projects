@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { HttpClient } from '@angular/common/http';
-
 import { Usuario } from '../models/Usuario';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private url = 'http://localhost:8080/v1/auth/login';
+  private url = `http://localhost:8080/v1/auth/login`;
 
   constructor(
     private http: HttpClient,
@@ -45,10 +46,17 @@ export class LoginService {
   getUserData() {
     const { $usuario, $personal } = this.jwtHelper.decodeToken(this.getTokenLocalStorage()).data[0];
     return {
-      nombres   : $personal.nombres_personal,
-      apellidos : $personal.apellidos_personal,
-      email     : $usuario.email,
-      photo     : $usuario.photo
+      nombres: $personal.nombres_personal,
+      apellidos: $personal.apellidos_personal,
+      email: $usuario.email,
+      photo: $usuario.photo
     };
+  }
+
+  getRouteScope($scope = '') {
+    const data = this.jwtHelper.decodeToken(this.getTokenLocalStorage());
+    return data.scope.filter((item) => {
+      return item.substring(0, item.indexOf('.')) === $scope;
+    });
   }
 }

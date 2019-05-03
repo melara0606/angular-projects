@@ -28,7 +28,7 @@ export class UsuariosEffects {
     )
   );
 
-  @Effect({ dispatch: true })
+  @Effect()
   statusUsuario$ = this.$action.pipe(
     ofType(usuarioActions.UsuariosTypesActions.DeleteStatus),
     mergeMap((user) => {
@@ -37,5 +37,16 @@ export class UsuariosEffects {
         catchError((error) => of(new usuarioActions.UsuariosFails(error)))
       );
     })
+  );
+
+  @Effect()
+  typeUpdateUser$ = this.$action.pipe(
+    ofType(usuarioActions.UsuariosTypesActions.UpdateUserType),
+    mergeMap(
+      (data) => this.usuariosService.updateUsuario(data['userCod'], data['data']).pipe(
+        map((record) => new usuarioActions.UsuarioUpdateUser(record, data['userCod'])),
+        catchError((error) => of(new usuarioActions.UsuariosFails(error)))
+      )
+    )
   );
 }

@@ -21,7 +21,7 @@ function init_plugins() {
                 $('.navbar-brand span').hide();
                 $(".sidebartoggler i").addClass("ti-menu");
             } else {
-                $("body").removeClass("mini-sidebar");
+                // $("body").removeClass("mini-sidebar");
                 $('.navbar-brand span').show();
             }
 

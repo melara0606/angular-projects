@@ -1,0 +1,40 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="row page-titles">
+  <div class="col-md-5 align-self-center">
+    <h3 class="text-themecolor">Perfiles</h3>
+  </div>
+  <div class="col-md-7 align-self-center" *ngIf="routes.includes('perfil.agregar')">
+    <button (click)="onCreatePerfil()"
+      class="btn btn-info waves-effect waves-light pull-right" type="button">
+      <span class="btn-label">
+        <i class="fa fa-plus"></i>
+      </span> Nuevo Perfil
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-3 col-md-6" *ngFor="let item of perfiles; let i = index;">
+    <div class="card">
+      <div class="row">
+        <div class="col-12">
+          <div class="social-widget">
+            <div (click)="editarPerfil(item);" [innerHTML]="item.icon | perfiles: item.nombre">
+            </div>
+            <div class="soc-content perfil" (click)="routeGo(item);">
+              <div class="col-6 b-r">
+                <h3 class="font-medium">{{ item['count'][1] }}</h3>
+                <h5 class="text-muted">Usuarios</h5>
+              </div>
+              <div class="col-6">
+                <h3 class="font-medium">{{ item['count'][0] }}</h3>
+                <h5 class="text-muted">Recursos</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

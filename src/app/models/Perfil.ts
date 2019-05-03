@@ -1,9 +1,16 @@
 export interface PefilInterface {
-  id: number;
+  id?: number;
   nombre: string;
-  estado: number;
+  estado?: number;
+  icon?: string;
+  recursos?: any[];
 }
 
 export class Perfil implements PefilInterface {
-  constructor(public id: number, public nombre: string, public estado: number) { }
+  constructor(
+    public nombre: string,
+    public id?: number,
+    public estado?: number,
+    public recursos?: any[]
+  ) { }
 }

@@ -82,6 +82,13 @@ export function usuarioReducers(
       };
     }
 
+    case usuarioAction.UsuariosTypesActions.UpdateUserType: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+
     default:
       return state;
   }

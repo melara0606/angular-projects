@@ -21,4 +21,9 @@ export class UsuariosService {
   updateUsuarioState(usuarioCod: string) {
     return this.http.delete(`usuarios/${usuarioCod}`).pipe(map((data) => data['record']));
   }
+
+  updateUsuario(usuarioCode: any, data: any) {
+    return this.http.put(`usuarios/${usuarioCode}`, data)
+      .pipe(map((result: any) => result['record'] ));
+  }
 }

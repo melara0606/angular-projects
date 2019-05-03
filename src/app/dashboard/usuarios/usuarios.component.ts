@@ -1,11 +1,11 @@
-import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 
 // services
 import { AppState } from 'src/app/app.reducers';
-import { UsuariosLoad, UsuarioDeleteStatus } from '../../stores/actions/usuarios.actions';
+import { LoginService } from 'src/app/services/login.service';
+import { UsuariosLoad, UsuarioDeleteStatus, UsuarioUpdateType } from '../../stores/actions/usuarios.actions';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 
 @Component({
@@ -22,7 +22,8 @@ export class UsuariosComponent implements OnInit {
 
   constructor(
     public store: Store<AppState>,
-    public loginService: LoginService
+    public loginService: LoginService,
+    private usuarioService: UsuariosService
   ) {
     this.store.select('usuarios').subscribe(data => {
       this.usuarios = data.items;
@@ -54,7 +55,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   async editPerfil(item: any) {
-    let map = new Map();
+    const map = new Map();
     this.perfiles.filter((element) => {
       return element.id !== item.perfilId;
     }).forEach((index) => {
@@ -69,7 +70,48 @@ export class UsuariosComponent implements OnInit {
       showCancelButton: true,
       inputValidator: (value) => this.validators(value, '')
     }).then((result) => {
-      console.log(result);
+      if (result.value) {
+        this.store.dispatch(new UsuarioUpdateType({
+          TYPE: 'PERFIL',
+          perfil_id: result.value
+        }, item.usuario_cod));
+      }
+    });
+  }
+
+  // TODO: Poner un placeholder para que se vea mas bonita
+  async editPassword(item: any) {
+    await Swal.fire({
+      input: 'password',
+      showCancelButton: true,
+      title: `Cambio de contraseña`,
+      inputPlaceholder: 'Nueva contraseña',
+      inputValidator: (value): Promise<string> => {
+        return new Promise((resolve) => {
+          if (value === '') {
+            resolve('Debes digitar una contraseña entre 8 y 16 caracteres!');
+          } else if (value.length < 8 || value.length > 16) {
+            resolve('Debes digitar una contraseña entre 8 y 16 caracteres!');
+          } else {
+            resolve();
+          }
+        });
+      }
+    }).then((result) => {
+      if (result.value) {
+        this.usuarioService.updateUsuario(item.usuario_cod, {
+          password: result.value.trim(),
+          TYPE: 'PASSWORD'
+        }).subscribe(record => {
+          Swal.fire({
+            title: 'Exito!',
+            text: `Hemos cambiado con exito la contraseña del usuario ${ record.email }`,
+            type: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Entrar'
+          });
+        });
+      }
     });
   }
 

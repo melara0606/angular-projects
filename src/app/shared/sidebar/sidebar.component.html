@@ -17,7 +17,8 @@
         <!-- Menu principal de la aplicacion -->
         <!-- TODO: Pendiente el order de los recursos y el link para cada uno de los enlaces -->
         <li *ngFor="let route of routes">
-          <a class="waves-effect waves-dark" routerLink="{{ route.url }}" routerLinkActive="select">
+          <!-- "{{ route.route }}"  -->
+          <a class="waves-effect waves-dark" routerLink='/{{ route.route }}'  routerLinkActive="active" >
             <i [class]="route.icon"></i>
             <span class="hide-menu"> {{ route.nombre }} </span>
           </a>

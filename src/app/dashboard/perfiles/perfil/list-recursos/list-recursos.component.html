@@ -1,0 +1,120 @@
+<div class="card">
+  <div class="card-body">
+    <h2 class="card-title" style="overflow: hidden;">
+      Recursos
+      <button *ngIf="routes.includes('perfil.agregar')" (click)="add(content)" type="button" class="btn btn-outline-primary pull-right">
+        <i class="fa fa-check"></i> Agregar
+      </button>
+    </h2>
+    <div class="table-responsive m-t-5">
+      <table class="table color-bordered-table primary-bordered-table">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Nombre</th>
+            <th colspan="3" class="text-center">Recursos</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let recurso of recursos">
+            <td style="width:40px">
+              <i [class]="recurso.icons"></i>
+            </td>
+            <td>{{ recurso.nombre }}</td>
+            <td align="right" width='90' class='text-center'>
+              <span class="label label-light-success" *ngIf="recurso.agregar">Agregar</span>
+            </td>
+            <td align="right" width='90' class='text-center'>
+              <span class="label label-light-info" *ngIf="recurso.editar" >Editar</span>
+            </td>
+            <td align="right" width='90' class='text-center'>
+              <span class="label label-light-danger" *ngIf="recurso.eliminar">Eliminar</span>
+            </td>
+
+            <td class="text-nowrap" class="text-center" width='80'>
+              <a (click)="editById(recurso, content)" data-toggle="tooltip" class='pointer-courser' data-original-title="Editar" *ngIf="routes.includes('perfil.editar')">
+                <i class="fa fa-pencil text-inverse m-r-10"></i>
+              </a>
+              <a (click)="deleteById(recurso);" *ngIf="routes.includes('perfil.eliminar')" class='pointer-courser'
+                data-toggle="tooltip" data-original-title="Eliminar">
+                <i class="fa fa-close text-danger"></i>
+              </a>
+            </td>
+          </tr>
+          <tr *ngIf="recursos.length === 0">
+            <td colspan="6">
+              <h2 class="text-center">No hay recursos para este perfil</h2>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Template modal -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Recurso</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form" #forma="ngForm" novalidate>
+      <div class="form-group row">
+        <label for="recurso-input" class="col-2 col-form-label">Recurso: </label>
+        <div class="col-10" *ngIf="!recursoElement.recurso_id">
+          <select id='recurso-input' ngModel name="recurso_id" class="custom-select col-12" required>
+            <option *ngFor="let item of recursosInNot" [value]="item.id">{{item.nombre}}</option>
+          </select>
+        </div>
+        <div class="col-10" *ngIf="recursoElement.recurso_id" >
+          <h2>{{ recursoElement.nombre }}</h2>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table color-bordered-table purple-bordered-table">
+          <thead>
+            <tr>
+              <th colspan="3" class="text-center">Privilegios</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-center">
+                <div class="form-check">
+                  <input name="agregar" class="form-check-input" value="agregar" id="agregar"
+                    [(ngModel)]="recursoElement.agregar"  type="checkbox"  />
+                  <label class="form-check-label" for="agregar">Agregar</label>
+                </div>
+              </td>
+              <td>
+                <div class="form-check">
+                  <input name="editar" class="form-check-input" [(ngModel)]="recursoElement.editar"
+                    type="checkbox" value="editar" id="editar" />
+                  <label class="form-check-label" for="editar">Editar</label>
+                </div>
+              </td>
+              <td>
+                <div class="form-check">
+                  <input name="eliminar" [(ngModel)]="recursoElement.eliminar" 
+                    class="form-check-input" type="checkbox" value="eliminar"
+                    id="eliminar" />
+                  <label class="form-check-label" for="eliminar">Eliminar</label>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button (click)="saveUpdate(forma, modal);" [disabled]="forma.invalid"
+      class="btn btn-primary waves-effect waves-light" type="button">
+      <span class="btn-label"><i class="fa fa-heart"></i></span> Guardar
+    </button>
+  </div>
+</ng-template>

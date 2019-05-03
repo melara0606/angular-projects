@@ -7,6 +7,7 @@ export enum UsuariosTypesActions {
   GetFails = '[Usuarios] Fails usuarios',
   DeleteStatus = '[Usuarios] Status usuarios',
   UpdateUser = '[Usuario] Update Informaction User',
+  UpdateUserType = '[Usuario] Update User Type',
 }
 
 export class UsuariosLoad implements Action {
@@ -33,4 +34,10 @@ export class UsuarioUpdateUser implements Action {
   constructor(public data: any[], public userCod: string) { }
 }
 
-export type usuariosActionsUnion = UsuariosGetItems | UsuariosLoad | UsuariosFails | UsuarioDeleteStatus | UsuarioUpdateUser;
+export class UsuarioUpdateType implements Action {
+  readonly type = UsuariosTypesActions.UpdateUserType;
+  constructor(public data: any, public userCod: string) { }
+}
+
+// tslint:disable-next-line: max-line-length
+export type usuariosActionsUnion = UsuariosGetItems | UsuariosLoad | UsuariosFails | UsuarioDeleteStatus | UsuarioUpdateUser | UsuarioUpdateType;

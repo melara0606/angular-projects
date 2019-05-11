@@ -1,7 +1,5 @@
-import { Store } from '@ngrx/store';
 import { Component } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
-import { AppState } from '../stores/reducers/usuarios.reducers';
 
 declare function init_plugins();
 

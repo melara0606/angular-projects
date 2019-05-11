@@ -6,8 +6,14 @@ import { PerfilesComponent } from './perfiles/perfiles.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 
 // Personales
-import { personalesRouting } from './personales/personales.routing';
 import { PersonalesComponent } from './personales/personales.component';
+import { NivelesComponent } from './niveles/niveles.component';
+
+// Horarios
+import { HorariosComponent } from './horarios/horarios.component';
+
+// Routes
+import { personalesRouting } from './personales/personales.routing';
 
 export const dashboardRouting: Routes = [
   { path: 'usuarios', component: UsuariosComponent },
@@ -19,6 +25,14 @@ export const dashboardRouting: Routes = [
     path: 'personales',
     component: PersonalesComponent,
     children: personalesRouting
+  },
+  {
+    path: 'niveles',
+    component: NivelesComponent
+  },
+  {
+    path: 'horarios',
+    component: HorariosComponent
   },
   { path: '**', redirectTo: 'perfiles', pathMatch: 'full' },
 ];

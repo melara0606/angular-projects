@@ -1,0 +1,115 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="row page-titles">
+  <div class="col-md-5 align-self-center">
+    <h3 class="text-themecolor">Niveles</h3>
+  </div>
+  <div class="col-md-7 align-self-center" *ngIf="list.length > 0">
+    <button (click)="addNivel();" class="btn btn-info waves-effect waves-light pull-right">
+      <span class="btn-label">
+        <i class="fa fa-plus"></i>
+      </span> Nuevo nivel
+    </button>
+  </div>
+</div>
+
+<div class="col-lg-6 offset-2" *ngIf="!loading">
+  <div class="card">
+    <div class="card-body">
+      <!-- <h4 class="card-title">Niveles</h4> -->
+      <div class="table-responsive">
+        <table class="table color-bordered-table info-bordered-table">
+          <thead>
+            <tr class="text-center">
+              <th>#</th>
+              <th>Nombre nivel</th>
+              <th>Cantidad de Topics</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let data of list; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ data.nombre }}</td>
+              <td>
+                <span class="label label-info">{{ data.items.length }}</span>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <button (click)="editNivel(data, i);" type="button" class="btn btn-outline-info btn-sm">
+                    <i class="ti-pencil"></i> Editar
+                  </button>
+                  <button (click)="open(content, data)" type="button" class="btn btn-outline-primary btn-sm">
+                    <i class="ti-eye"></i> Ver
+                  </button>
+                </div>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="4">
+                <div class="jumbotron jumbotron-fluid" *ngIf="list.length === 0">
+                  <div class="container text-center">
+                    <h1 class="display-3">Vacio ;-(</h1>
+                    <p class="lead">
+                      Por el momento no hay niveles registrados
+                    </p>
+                    <p>
+                      <button (click)="addNivel();" class="btn btn-info waves-effect waves-light">
+                        <span class="btn-label">
+                          <i class="fa fa-plus"></i>
+                        </span> Registrar el primer nivel
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Template para el modal del nivel -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Nivel: {{ item.nombre }}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="card">
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-3 col-form-label">Nombre del topics *: </label>
+          <div class="col-9">
+            <input class="form-control" required #txtNuevo
+              (keyup.enter)="addTopics(txtNuevo)"
+              type="text" placeholder="* Nombre del topics" />
+          </div>
+        </div>
+        <ul class="feeds">
+          <li *ngFor="let item of item.items; let index = index;">
+            <input type="text" [value]="item.nombre" [hidden]="!item.editing" class="form-control"
+              placeholder="* Nombre del topics" #txt (keyup.enter)="save(item, index, txt);" />
+            <h4 [hidden]="item.editing" class="title-nivel" (click)="editar(item, index);">
+              {{ item.nombre }}
+              <span class="text-muted">
+                <i class="fa fa-pencil text-inverse m-r-10"></i>
+              </span>
+            </h4>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="modal-footer">
+    <button class="btn btn-primary waves-effect waves-light" type="button">
+      <span class="btn-label"><i class="fa fa-heart"></i></span> Guardar
+    </button>
+  </div> -->
+</ng-template>

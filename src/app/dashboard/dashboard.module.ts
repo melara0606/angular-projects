@@ -24,6 +24,8 @@ import { ListRecursosComponent } from './perfiles/perfil/list-recursos/list-recu
 import { PersonalesComponent } from './personales/personales.component';
 import { PersonalAddComponent } from './personales/personal-add/personal-add.component';
 import { PersonalListComponent } from './personales/personal-list/personal-list.component';
+import { NivelesComponent } from './niveles/niveles.component';
+import { HorariosComponent } from './horarios/horarios.component';
 
 const routes: Routes = [
   {
@@ -44,7 +46,9 @@ const routes: Routes = [
     ListRecursosComponent,
     PersonalesComponent,
     PersonalAddComponent,
-    PersonalListComponent
+    PersonalListComponent,
+    NivelesComponent,
+    HorariosComponent
   ],
   imports: [
     NgbModule,

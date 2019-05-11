@@ -29,7 +29,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.router.params.subscribe(params => {
       this.store.dispatch( new PerfilItem (params.id) );
-    })
+    });
   }
 
   ngOnDestroy() {

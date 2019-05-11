@@ -52,8 +52,8 @@ export class LoginService {
   getUserData() {
     const { usuario, personal } = this.jwtHelper.decodeToken(this.getTokenLocalStorage()).data[0];
     return {
-      nombres: personal.nombres_personal,
-      apellidos: personal.apellidos_personal,
+      nombres: personal.nombres,
+      apellidos: personal.apellidos,
       email: usuario.email,
       photo: usuario.photo
     };

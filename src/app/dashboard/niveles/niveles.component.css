@@ -1,0 +1,8 @@
+.title-nivel:hover span.text-muted {
+  display: block;
+}
+.title-nivel span.text-muted {
+  display: none;
+}
+
+.title-nivel { cursor: pointer; }

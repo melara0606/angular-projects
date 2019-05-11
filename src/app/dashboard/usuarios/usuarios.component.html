@@ -8,7 +8,15 @@
         <h6 class="card-subtitle">
           Mantenimiento para los usuarios
         </h6>
-        <div class="table-responsive">
+        <div class="jumbotron jumbotron-fluid" *ngIf="usuarios.length === 0">
+          <div class="container text-center">
+            <h1 class="display-3">Vacio ;-(</h1>
+            <p class="lead">
+              Por le momento no tenemos ni un registro en nuestra base de dato, para los usuarios
+            </p>
+          </div>
+        </div>
+        <div class="table-responsive" *ngIf="usuarios.length > 0">
           <table class="table table-striped">
             <thead>
               <tr>
@@ -25,7 +33,7 @@
                 <td>{{ i + 1 }}</td>
                 <td>{{ item.email }}</td>
                 <td>{{ item.nombrePerfil }}</td>
-                <td>{{ item.nombres_personal }} {{ item.apellidos_personal }}</td>
+                <td>{{ item.nombres }} {{ item.apellidos }}</td>
                 <td>
                   <div [ngClass]="{ 
                     'label-danger' : item.estado == 0, 'label-info' : item.estado == 1 
@@ -35,17 +43,20 @@
                 </td>
                 <td>
                   <div class="btn-group" role="group" aria-label="operaciones">
-                    <button (click)="darBajaOrActivar( item );" data-toggle="tooltip" data-placement="top" 
+                    <button (click)="darBajaOrActivar( item );" data-toggle="tooltip" data-placement="top"
                       title="Activar/Desactivar usuario" type="button" *ngIf="routes.includes('usuario.eliminar')"
                       class="btn waves-effect waves-light btn-danger">
                       <i class="ti-trash"></i>
                     </button>
 
-                    <button *ngIf="routes.includes('usuario.editar')" (click)="editPerfil(item);"  data-toggle="tooltip" data-original-title="Editar perfil" type="button" class="btn waves-effect waves-light btn-info">
+                    <button *ngIf="routes.includes('usuario.editar')" (click)="editPerfil(item);" data-toggle="tooltip"
+                      data-original-title="Editar perfil" type="button" class="btn waves-effect waves-light btn-info">
                       <i class="ti-user"></i>
                     </button>
 
-                    <button (click)="editPassword(item);" *ngIf="routes.includes('usuario.editar')" data-toggle="tooltip" data-original-title="Editar contraseña" type="button" class="btn waves-effect waves-light btn-info">
+                    <button (click)="editPassword(item);" *ngIf="routes.includes('usuario.editar')"
+                      data-toggle="tooltip" data-original-title="Editar contraseña" type="button"
+                      class="btn waves-effect waves-light btn-info">
                       <i class="ti-key"></i>
                     </button>
                   </div>

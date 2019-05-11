@@ -16,13 +16,16 @@ export class LoginComponent {
     email: null,
     password: null
   };
+  public data: any;
   public loading: boolean;
+  public errorChangePassword: boolean;
 
   constructor(
     private loginService: LoginService,
     private router: Router
   ) {
     this.loading = false;
+    this.errorChangePassword = false;
   }
 
   onSubmit(f: NgForm) {
@@ -44,17 +47,33 @@ export class LoginComponent {
       }
     }, (response) => {
       this.loading = false;
-      const { message } = response.error;
-      Swal.fire({
-        title: 'Error!',
-        type: 'error',
-        text: message,
-        confirmButtonText: 'Ok ;('
-      });
-      f.reset({
-        email: this.usuario.email,
-        password: ''
-      });
+      const { message, status } = response.error;
+      if (status === 402) {
+        Swal.fire('Error!', 'Hemos descubierto que no has hecho cambio de contraseña', 'warning').then(() => {
+          this.data = message.data;
+          this.errorChangePassword = true;
+        });
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          type: 'error',
+          text: message,
+          confirmButtonText: 'Ok ;('
+        });
+
+        this.usuario = {
+          ...this.usuario,
+          password: ''
+        };
+      }
     });
+  }
+
+  public onResponse(response) {
+    this.errorChangePassword = false;
+    this.usuario = {
+      ...this.usuario,
+      password: ''
+    };
   }
 }

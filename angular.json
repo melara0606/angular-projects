@@ -27,7 +27,9 @@
               "src/styles.css",
               "src/assets/css/colors/default-dark.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/moment/min/moment.min.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {

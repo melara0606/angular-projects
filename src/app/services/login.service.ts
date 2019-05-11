@@ -22,6 +22,12 @@ export class LoginService {
     });
   }
 
+  changePassword(data: any) {
+    return this.http.post(`${ this.url }/change-password`, {
+      ...data
+    });
+  }
+
   isAuthenticated(): boolean {
     return !this.jwtHelper.isTokenExpired(this.getTokenLocalStorage());
   }
@@ -44,12 +50,12 @@ export class LoginService {
   }
 
   getUserData() {
-    const { $usuario, $personal } = this.jwtHelper.decodeToken(this.getTokenLocalStorage()).data[0];
+    const { usuario, personal } = this.jwtHelper.decodeToken(this.getTokenLocalStorage()).data[0];
     return {
-      nombres: $personal.nombres_personal,
-      apellidos: $personal.apellidos_personal,
-      email: $usuario.email,
-      photo: $usuario.photo
+      nombres: personal.nombres_personal,
+      apellidos: personal.apellidos_personal,
+      email: usuario.email,
+      photo: usuario.photo
     };
   }
 

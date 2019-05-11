@@ -3,7 +3,7 @@
 <section id="wrapper" *ngIf="!loading">
   <div class="login-register login-background">
     <div class="login-box card">
-      <div class="card-body">
+      <div class="card-body" *ngIf="!errorChangePassword">
         <form #forma="ngForm" novalidate autocomplete="off"
           class="form-horizontal form-material" (submit)="onSubmit(forma)" >
           <h1 class="box-title m-b-20 text-center">Bienvenido</h1>
@@ -38,6 +38,9 @@
           </div>
         </form>
       </div>
+
+      <app-reset-password (response)="onResponse($event)"
+        [data]="data" *ngIf="errorChangePassword"></app-reset-password>
     </div>
   </div>
 </section>

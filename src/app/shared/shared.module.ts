@@ -15,6 +15,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { LogoutComponent } from './logout/logout.component';
 import { FooterComponent } from './footer/footer.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FooterComponent } from './footer/footer.component';
     NavbarComponent,
     SidebarComponent,
     LogoutComponent,
-    FooterComponent
+    FooterComponent,
+    ResetPasswordComponent
   ],
   imports: [
     CommonModule,

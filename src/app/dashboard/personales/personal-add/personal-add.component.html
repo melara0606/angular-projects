@@ -1,0 +1,257 @@
+
+<app-loading *ngIf="loading"></app-loading>
+
+<div *ngIf="!loading">
+  <div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+      <h3 class="text-themecolor">{{ edit ? 'Editar' : 'Nuevo' }} Personal</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/" routerLinkActive="router-link-active" >Inicio</a></li>
+        <li class="breadcrumb-item"><a routerLink="/personales">Personales</a></li>
+        <li class="breadcrumb-item active">{{ edit ? 'Editar' : 'Nuevo' }}</li>
+      </ol>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card ">
+        <div class="card-header bg-info">
+          <h4 class="m-b-0 text-white">{{ edit ? 'Editar' : 'Agregar' }} personal</h4>
+        </div>
+        <div class="card-body">
+          <form class="form-horizontal needs-validation" autocomplete="off" novalidate [formGroup]="forma"
+            (submit)="saveOnUpdate();">
+            <div class="form-body">
+              <h3 class="box-title">Datos Personales</h3>
+              <hr class="m-t-0 m-b-40" />
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Nombres: *</label>
+                    <div class="col-md-9">
+                      <input type="text" formControlName="nombres"
+                        [ngClass]="{ 'is-invalid' : forma.get('nombres').invalid, 'is-valid' : forma.get('nombres').valid }"
+                        class="form-control" placeholder="Nombres del personal" />
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Apellidos: * </label>
+                    <div class="col-md-9">
+                      <input type="text" formControlName="apellidos" class="form-control"
+                        placeholder="Apellidos del docente"
+                        [ngClass]="{ 'is-invalid' : forma.get('apellidos').invalid, 'is-valid' : forma.get('apellidos').valid }" />
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Estado Civil: * </label>
+                    <div class="col-md-9">
+                      <select class="form-control custom-select" formControlName="estado_civil"
+                        [ngClass]="{ 'is-invalid' : forma.get('estado_civil').invalid, 'is-valid' : forma.get('estado_civil').valid }">
+                        <option value="">[Seleccionar Estado Civil]</option>
+                        <option value="Soltero">Soltero</option>
+                        <option value="Acompañado">Acompañado</option>
+                        <option value="Casado">Casado</option>
+                        <option value="Divorciado">Divorciado</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Fecha de ingreso: </label>
+                    <div class="col-md-9 input-group">
+                      <input formControlName="fecha_ingreso" #ingreso="ngbDatepicker" readonly="true" ngbDatepicker
+                        class="form-control" placeholder="dd/mm/yyyy"
+                        [ngClass]="{ 'is-invalid' : forma.get('fecha_ingreso').invalid, 'is-valid' : forma.get('fecha_ingreso').valid }" />
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="ingreso.toggle()" type="button">
+                          <i class="fa fa-calendar"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+                
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Genero: * </label>
+                    <div class="col-md-9">
+                      <select class="form-control custom-select" formControlName="genero"
+                        [ngClass]="{ 'is-invalid' : forma.get('genero').invalid, 'is-valid' : forma.get('genero').valid }">
+                        <option value="">[Seleccionar Genero]</option>
+                        <option value="MASCULINO">Masculino</option>
+                        <option value="FEMENINO">Femenino</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Fecha de nacimiento: </label>
+                    <div class="col-md-9 input-group">
+                      <input formControlName="fecha_nacimiento" #d="ngbDatepicker" readonly="true" ngbDatepicker
+                        class="form-control" placeholder="dd/mm/yyyy"
+                        [ngClass]="{ 'is-invalid' : forma.get('fecha_nacimiento').invalid, 'is-valid' : forma.get('fecha_nacimiento').valid }" />
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+                          <i class="fa fa-calendar"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>            
+              <hr />
+              <!--/row-->
+              <div class="row">
+                <div class="col-md-4" *ngIf="!edit">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">DUI: * </label>
+                    <div class="col-md-9">
+                      <input type="text" formControlName="dui" minlength="10"
+                        [ngClass]="{ 'is-invalid' : forma.get('dui').invalid, 'is-valid' : forma.get('dui').valid }" [textMask]="{mask: maskDui,  guide: false}" class="form-control" placeholder="DUI del personal" />
+                      <div *ngIf="forma.get('dui').hasError('existe')" 
+                        class="invalid-feedback">El DUI debe ser unico y al paracer este DUI ya existe.</div>
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+  
+                <div class="col-md-4" [ngClass]="{ 'col-md-6': edit }">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">NIT: *</label>
+                    <div class="col-md-9">
+                      <input type="text" formControlName="nit" minlength="17"
+                        [ngClass]="{ 'is-invalid' : forma.get('nit').invalid, 'is-valid' : forma.get('nit').valid }" [textMask]="{mask: maskNit,  guide: false}" class="form-control" placeholder="NIT del personal" />
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+  
+                <div class="col-md-4" [ngClass]="{ 'col-md-6': edit }">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">ISSS: *</label>
+                    <div class="col-md-9">
+                      <input type="text" formControlName="isss"
+                        [ngClass]="{ 'is-invalid' : forma.get('isss').invalid, 'is-valid' : forma.get('isss').valid }" class="form-control" [textMask]="{mask: maskISSS,  guide: false}" placeholder="# del seguro social" />
+                    </div>
+                  </div>
+                </div>
+                <!--/span-->
+  
+                <div class="col-md-4" [ngClass]="{ 'col-md-6': edit }">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">NUP: *</label>
+                    <div class="col-md-9">
+                      <input type="text" formControlName="nup"
+                        [ngClass]="{ 'is-invalid' : forma.get('nup').invalid, 'is-valid' : forma.get('nup').valid }" [textMask]="{mask: maskNup,  guide: false}" class="form-control" placeholder="# del nup" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4"  [ngClass]="{ 'col-md-6': edit }">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Telefono: * </label>
+                    <div class="col-md-9">
+                      <input type="text" formControlName="telefono" minlength="9"
+                        [ngClass]="{ 'is-invalid' : forma.get('telefono').invalid, 'is-valid' : forma.get('telefono').valid }" [textMask]="{mask: masktelefono,  guide: false}" class="form-control" placeholder="Telefono" />
+                    </div>
+                  </div>
+                </div>
+  
+                <div class='col-md-4'  [ngClass]="{ 'col-md-6': edit }">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Celular: * </label>
+                    <div class="col-md-9">
+                      <input type="text" formControlName="movil" minlength="9"
+                        [ngClass]="{ 'is-invalid' : forma.get('movil').invalid, 'is-valid' : forma.get('movil').valid }" [textMask]="{mask: masktelefono,  guide: false}" class="form-control" placeholder="Movil" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Correo Electronico: *</label>
+                    <div class="col-md-9">
+                      <input type="email" formControlName="email"
+                        [ngClass]="{ 'is-invalid' : forma.get('email').invalid, 'is-valid' : forma.get('email').valid }" class="form-control" placeholder="Correo Electronico" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="control-label text-right col-md-3">Perfil: *</label>
+                    <div class="col-md-9">
+                      <select class="form-control custom-select" formControlName="perfil"
+                        [ngClass]="{ 'is-invalid' : forma.get('perfil').invalid, 'is-valid' : forma.get('perfil').valid }">
+                        <option value="">[Seleccionar Perfil]</option>
+                        <option [value]="perfil.id" *ngFor="let perfil of perfiles">
+                          {{ perfil.nombre }}
+                        </option>
+                      </select>                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <h3 class="box-title">Direccion</h3>
+              <hr class="m-t-0 m-b-40">
+              <!--/row-->
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group row">
+                    <div class="col-md-12">
+                      <textarea [ngClass]="{ 'is-invalid' : forma.get('direccion').invalid, 'is-valid' : forma.get('direccion').valid }"
+                        class="form-control" formControlName="direccion" cols="30" rows="4"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/row-->
+            </div>
+            <hr>
+            <div class="form-actions">
+              <div class="row">
+                <div class="col-md-12">
+                  <button *ngIf="!loading && !edit" type="button" 
+                    [disabled]="forma.invalid" (click)="saveOnUpdate()" 
+                    class="btn btn-primary m-r-10">
+                      <i class="fa fa-check"></i> Guardar
+                  </button>
+  
+                  <button *ngIf="!loading && edit" type="button" 
+                    [disabled]="forma.invalid" (click)="saveOnEdit()" 
+                    class="btn btn-primary m-r-10">
+                      <i class="fa fa-check"></i> Editar
+                  </button>
+                  
+                  <button *ngIf="loading" type="button" 
+                    [disabled]="loading" class="btn btn-primary m-r-10">
+                    <i class="fa fa-refresh fa-spin"></i> Espere ...
+                  </button>
+                  
+                  <button type="button" (click)="reset();"
+                    class="btn btn-danger pull-right">
+                    <i class="fa fa-minus"></i> Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

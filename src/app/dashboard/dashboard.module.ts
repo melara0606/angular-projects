@@ -1,8 +1,10 @@
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
+import { TextMaskModule } from 'angular2-text-mask';
 import { RouterModule, Routes } from '@angular/router';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // reducers
 import { usuarioReducers } from '../stores/reducers/usuarios.reducers';
@@ -20,6 +22,8 @@ import { PerfilComponent } from './perfiles/perfil/perfil.component';
 import { ListUsuarioComponent } from './perfiles/perfil/list-usuario/list-usuario.component';
 import { ListRecursosComponent } from './perfiles/perfil/list-recursos/list-recursos.component';
 import { PersonalesComponent } from './personales/personales.component';
+import { PersonalAddComponent } from './personales/personal-add/personal-add.component';
+import { PersonalListComponent } from './personales/personal-list/personal-list.component';
 
 const routes: Routes = [
   {
@@ -38,12 +42,16 @@ const routes: Routes = [
     DashboardComponent,
     ListUsuarioComponent,
     ListRecursosComponent,
-    PersonalesComponent
+    PersonalesComponent,
+    PersonalAddComponent,
+    PersonalListComponent
   ],
   imports: [
+    NgbModule,
     FormsModule,
     CommonModule,
     SharedModule,
+    TextMaskModule,
     ReactiveFormsModule,
     RouterModule.forChild( routes ),
     StoreModule.forFeature('usuarios', usuarioReducers),

@@ -1,3 +1,211 @@
-<p>
-  horarios works!
-</p>
+<app-loading *ngIf="loading"></app-loading>
+
+<div class="row page-titles">
+  <div class="col-md-5 align-self-center">
+    <h3 class="text-themecolor">Niveles</h3>
+  </div>
+  <div class="col-md-7 align-self-center" *ngIf="list.length > 0">
+    <button (click)="create(content)" class="btn btn-info waves-effect waves-light pull-right">
+      <span class="btn-label">
+        <i class="fa fa-plus"></i>
+      </span> Nuevo horario
+    </button>
+  </div>
+</div>
+
+<div class="col-12" *ngIf="!loading">
+  <div class="card">
+    <div class="card-body">
+      <!-- <h4 class="card-title">Niveles</h4> -->
+      <div class="table-responsive">
+        <table class="table color-bordered-table info-bordered-table">
+          <thead>
+            <tr class="text-center">
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Hora de Entrada</th>
+              <th>Hora de salida</th>
+              <th>Tipo</th>
+              <th>Dias</th>
+              <th>
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngIf="list.length === 0">
+              <td colspan="7">
+                <div class="jumbotron jumbotron-fluid">
+                  <div class="container text-center">
+                    <h1 class="display-3">Vacio ;-(</h1>
+                    <p class="lead">
+                      Por el momento no hay horarios registrados
+                    </p>
+                    <p>
+                      <button (click)="open(content)" class="btn btn-info waves-effect waves-light">
+                        <span class="btn-label">
+                          <i class="fa fa-plus"></i>
+                        </span> Registrar el primer horario
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+
+            <tr *ngFor="let item of list; let index = index;">
+              <td>{{ index + 1 }}</td>
+              <td>{{ item.nombre }}</td>
+              <td>{{ item.timeEntrada }}</td>
+              <td>{{ item.timeSalida }}</td>
+              <td>{{ item.tipo_horario }}</td>
+              <td>
+                <span class="label label-info m-r-10" *ngFor="let i of item.dias">{{ i.dia }}</span>
+              </td>
+              <td>
+                <button (click)="editar(item, content, index)" class="btn btn-sm btn-primary waves-effect waves-light"
+                  type="button">
+                  <span class="btn-label"><i class="fa fa-check"></i></span> Editar
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ this.itemHorario.save ? 'Agregar' : 'Editar' }} horario
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (submit)="saveOnUpdate(forma, modal)" #forma='ngForm' novalidate autocomplete="off">
+      <div class="form-body">
+        <h3 class="card-title">Datos Generales</h3>
+        <hr>
+        <div class="row p-t-20">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label">Nombre del Horario: *</label>
+              <input type="text" name="nombre" required [(ngModel)]="itemHorario.nombre" id="nombre"
+                class="form-control" placeholder="Nombre del horario" />
+            </div>
+          </div>
+          <!--/span-->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label">Tipo de horario: *</label>
+              <select required [(ngModel)]="itemHorario.tipo_horario" name="tipo_horario" id="tipo_horario"
+                class="form-control">
+                <option value="INTENSIVO">INTENSIVO</option>
+                <option value="SEMANAL">SEMANAL</option>
+                <option value="NOCTURNO">NOCTURNO</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group has-success">
+              <label class="control-label">Hora de entrada</label>
+              <ngb-timepicker required [meridian]="true" name='timeEntrada' [(ngModel)]="itemHorario.timeEntrada">
+              </ngb-timepicker>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label class="control-label">Hora de salidad</label>
+              <ngb-timepicker required [meridian]="true" name='timeSalida' [(ngModel)]="itemHorario.timeSalida">
+              </ngb-timepicker>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="4" class="text-center">
+                    <h3>Dias</h3>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-center">
+                    <div class="form-check">
+                      <input name="lunes" [(ngModel)]="itemHorario.dias.lunes" class="form-check-input" value="Lunes"
+                        id="lunes" type="checkbox" />
+                      <label class="form-check-label" for="lunes">Lunes</label>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div class="form-check">
+                      <input name="martes" [(ngModel)]="itemHorario.dias.martes" class="form-check-input"
+                        type="checkbox" value="Martes" id="martes" />
+                      <label class="form-check-label" for="martes">Martes</label>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div class="form-check">
+                      <input name="miercoles" [(ngModel)]="itemHorario.dias.miercoles" class="form-check-input"
+                        type="checkbox" value="Miercoles" id="miercoles" />
+                      <label class="form-check-label" for="miercoles">Miercoles</label>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div class="form-check">
+                      <input name="jueves" [(ngModel)]="itemHorario.dias.jueves" class="form-check-input"
+                        type="checkbox" value="Jueves" id="jueves" />
+                      <label class="form-check-label" for="jueves">Jueves</label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="text-center">
+                    <div class="form-check">
+                      <input name="viernes" [(ngModel)]="itemHorario.dias.viernes" class="form-check-input"
+                        value="viernes" id="viernes" type="checkbox" />
+                      <label class="form-check-label" for="viernes">Viernes</label>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div class="form-check">
+                      <input name="sabado" [(ngModel)]="itemHorario.dias.sabado" class="form-check-input"
+                        type="checkbox" value="Sabado" id="sabado" />
+                      <label class="form-check-label" for="sabado">Sabado</label>
+                    </div>
+                  </td>
+                  <td class="text-center" colspan="2">
+                    <div class="form-check">
+                      <input name="domingo" [(ngModel)]="itemHorario.dias.domingo" class="form-check-input"
+                        type="checkbox" value="Domingo" id="domingo" />
+                      <label class="form-check-label" for="domingo">Domingo</label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" [disabled]="forma.invalid" class="btn btn-success">
+          <i class="fa fa-check"></i> {{ this.itemHorario.save ? 'Guardar' : 'Editar' }}
+        </button>
+        <button type="button" (click)="modal.dismiss('Cross click')" class="btn btn-inverse pull-right">Cancel</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

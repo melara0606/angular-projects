@@ -1,0 +1,103 @@
+<div class="row page-titles">
+  <div class="col-md-5 align-self-center">
+    <!-- <h3 class="text-themecolor">Sucursales</h3> -->
+  </div>
+  <div class="col-md-7 align-self-center" *ngIf="list.length > 0">
+    <button (click)="create(content)" class="btn btn-info waves-effect waves-light pull-right">
+      <span class="btn-label">
+        <i class="fa fa-plus"></i>
+      </span> Nuevo Sucursal
+    </button>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <h4 class="card-title">Sucursales</h4>
+    <div class="table-responsive">
+      <table class="table color-bordered-table purple-bordered-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Correo Electronico</th>
+            <th>Telefono</th>
+            <th>Estado</th>
+            <th colspan="2" class="text-center">
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of list; let index = index;">
+            <td>{{ index + 1 }}</td>
+            <td>{{ item.nombre }}</td>
+            <td>{{ item.email }}</td>
+            <td>{{ item.telefono }}</td>
+            <td>
+              <span class="label" [ngClass]="{'label-primary':  item.estado, 'label-danger':  !item.estado }">
+                {{ item.estado ? 'Activo' : 'Inactivo' }}
+              </span>
+            </td>
+            <td width='140'>
+              <button (click)="edit(item, content, index)" type="button" class="btn btn-outline-success">
+                <i class="fa fa-check"></i> Editar
+              </button>
+            </td>
+            <td width='140'>
+              <button type="button" (click)="darbaja(item, index)" class="btn btn-outline-danger">
+                <i class="fa fa-heart"></i> Eliminar
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="list.length === 0">
+            <td colspan="7">
+              <app-empty></app-empty>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- TODO: Falta las mascara para el telefono.... -->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ item.save ? 'Agregar' : 'Editar' }} sucursal
+    </h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('salir')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form class="form-horizontal" #forma="ngForm" novalidate="" autocomplete="off">
+      <div class="form-group" [ngClass]="{'has-danger': nombre.errors, 'has-success': !nombre.errors}">
+        <label class="form-control-label" for="nombre">Nombre de la sucursal: *</label>
+        <input required name="nombre" id="nombre" [(ngModel)]="item.nombre" #nombre="ngModel" type="text" class="form-control" minlength="5" [ngClass]="{'form-control-danger is-invalid': nombre.errors, 'form-control-success is-valid': !nombre.errors}" placeholder="Nombre de la sucursal *" />
+      </div>
+      <div class="form-group" [ngClass]="{'has-danger': email.errors, 'has-success': !email.errors}">
+        <label for="email">Correo Electronico: *</label>
+        <input class="form-control-label" type="email" id="email" required [(ngModel)]="item.email" #email="ngModel" name="email" class="form-control" [ngClass]="{'form-control-danger is-invalid': email.errors, 'form-control-success is-valid': !email.errors}" placeholder="Correo Electronico *" />
+      </div>
+      <div class="form-group" [ngClass]="{'has-danger': telefono.errors, 'has-success': !telefono.errors}">
+        <label class="form-control-label" for="telefono">Telefono: *</label>
+        <input type="text" required name="telefono" id="telefono" #telefono="ngModel" class="form-control" [ngClass]="{'form-control-danger is-invalid': telefono.errors, 'form-control-success is-valid': !telefono.errors}" placeholder="Telefono *"
+          [(ngModel)]="item.telefono" />
+      </div>
+      <div class="form-group" [ngClass]="{'has-danger': direccion.errors, 'has-success': !direccion.errors}">
+        <label class="form-control-label" for="direccion">Direccion: *</label>
+        <textarea #direccion="ngModel" required name="direccion" id="direccion" [(ngModel)]="item.direccion" class="form-control" rows="5" placeholder="Direccion *"
+          [ngClass]="{'form-control-danger is-invalid': direccion.errors, 'form-control-success is-valid': !direccion.errors}"></textarea>
+      </div>
+      <div>
+        <button (click)="modal.close(forma)" type="submit" [disabled]="forma.invalid"
+          class="btn btn-success waves-effect waves-light">{{ item.save ? 'Guardar' : 'Editar' }}</button>
+        <button (click)="modal.dismiss('salir')"
+          class="btn btn-inverse waves-effect waves-light pull-right">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -26,6 +26,9 @@ import { PersonalAddComponent } from './personales/personal-add/personal-add.com
 import { PersonalListComponent } from './personales/personal-list/personal-list.component';
 import { NivelesComponent } from './niveles/niveles.component';
 import { HorariosComponent } from './horarios/horarios.component';
+import { SucursalesComponent } from './sucursales/sucursales.component';
+import { SucursalesListComponent } from './sucursales/sucursales-list/sucursales-list.component';
+import { EmptyComponent } from './empty/empty.component';
 
 const routes: Routes = [
   {
@@ -48,7 +51,10 @@ const routes: Routes = [
     PersonalAddComponent,
     PersonalListComponent,
     NivelesComponent,
-    HorariosComponent
+    HorariosComponent,
+    SucursalesComponent,
+    SucursalesListComponent,
+    EmptyComponent
   ],
   imports: [
     NgbModule,

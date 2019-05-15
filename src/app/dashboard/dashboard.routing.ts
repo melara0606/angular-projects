@@ -4,16 +4,18 @@ import { Routes } from '@angular/router';
 import { PerfilComponent } from './perfiles/perfil/perfil.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
-
-// Personales
-import { PersonalesComponent } from './personales/personales.component';
 import { NivelesComponent } from './niveles/niveles.component';
 
 // Horarios
 import { HorariosComponent } from './horarios/horarios.component';
 
-// Routes
+// Personales
+import { PersonalesComponent } from './personales/personales.component';
 import { personalesRouting } from './personales/personales.routing';
+
+// Sucursales
+import { sucursalesRouting } from './sucursales/sucursales.routing';
+import { SucursalesComponent } from './sucursales/sucursales.component';
 
 export const dashboardRouting: Routes = [
   { path: 'usuarios', component: UsuariosComponent },
@@ -33,6 +35,11 @@ export const dashboardRouting: Routes = [
   {
     path: 'horarios',
     component: HorariosComponent
+  },
+  {
+    path: 'sucursales',
+    component: SucursalesComponent,
+    children: sucursalesRouting
   },
   { path: '**', redirectTo: 'perfiles', pathMatch: 'full' },
 ];

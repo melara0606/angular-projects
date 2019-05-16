@@ -29,6 +29,9 @@ import { Error403Component } from './redirect/error403/error403.component';
 // Bootstrap Module
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+// Material Design
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
 export function tokenGetterFunction() {
   return localStorage.getItem('access_token');
 }
@@ -46,6 +49,7 @@ export function tokenGetterFunction() {
     AppRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetterFunction,

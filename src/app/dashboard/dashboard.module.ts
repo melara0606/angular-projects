@@ -27,6 +27,10 @@ import { PersonalListComponent } from './personales/personal-list/personal-list.
 import { NivelesComponent } from './niveles/niveles.component';
 import { HorariosComponent } from './horarios/horarios.component';
 
+import {
+  MatDatepickerModule, MatNativeDateModule, MatFormFieldModule
+} from '@angular/material';
+
 const routes: Routes = [
   {
     path: '',
@@ -57,9 +61,17 @@ const routes: Routes = [
     SharedModule,
     TextMaskModule,
     ReactiveFormsModule,
-    RouterModule.forChild( routes ),
+    RouterModule.forChild(routes),
     StoreModule.forFeature('usuarios', usuarioReducers),
     StoreModule.forFeature('perfiles', perfilesReducers),
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+  ],
+  exports: [
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ]
 })
 export class DashboardModule { }

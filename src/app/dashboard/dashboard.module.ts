@@ -28,7 +28,7 @@ import { NivelesComponent } from './niveles/niveles.component';
 import { HorariosComponent } from './horarios/horarios.component';
 
 import {
-  MatDatepickerModule, MatNativeDateModule, MatFormFieldModule
+  MatFormFieldModule, MatInputModule, MatIconModule
 } from '@angular/material';
 
 const routes: Routes = [
@@ -64,14 +64,14 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     StoreModule.forFeature('usuarios', usuarioReducers),
     StoreModule.forFeature('perfiles', perfilesReducers),
+    MatIconModule,
+    MatInputModule,
     MatFormFieldModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
   ],
   exports: [
+    MatIconModule,
+    MatInputModule,
     MatFormFieldModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
   ]
 })
 export class DashboardModule { }

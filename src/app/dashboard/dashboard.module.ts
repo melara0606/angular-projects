@@ -33,6 +33,10 @@ import { CargaAcademicaComponent } from './carga-academica/carga-academica.compo
 import { CargaEmpyComponent } from './carga-academica/carga-empy/carga-empy.component';
 import { CargaNuevaComponent } from './carga-academica/carga-nueva/carga-nueva.component';
 
+import {
+  MatFormFieldModule, MatInputModule, MatIconModule
+} from '@angular/material';
+
 const routes: Routes = [
   {
     path: '',
@@ -69,9 +73,17 @@ const routes: Routes = [
     SharedModule,
     TextMaskModule,
     ReactiveFormsModule,
-    RouterModule.forChild( routes ),
+    RouterModule.forChild(routes),
     StoreModule.forFeature('usuarios', usuarioReducers),
     StoreModule.forFeature('perfiles', perfilesReducers),
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
+  ],
+  exports: [
+    MatIconModule,
+    MatInputModule,
+    MatFormFieldModule,
   ]
 })
 export class DashboardModule { }

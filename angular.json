@@ -24,8 +24,7 @@
             ],
             "styles": [
               "src/assets/css/bootstrap/bootstrap.min.css",
-              "src/styles.css",
-              "src/assets/css/colors/default-dark.css"
+              "src/styles.css"
             ],
             "scripts": [
               "node_modules/moment/min/moment.min.js"

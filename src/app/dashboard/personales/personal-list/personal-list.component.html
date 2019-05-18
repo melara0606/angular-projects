@@ -18,8 +18,7 @@
       Por el momento no hay personales en nuestra base de datos.
     </p>
     <p>
-      <a [routerLink]="['/personales', 'add']" 
-        class="btn btn-info waves-effect waves-light">
+      <a [routerLink]="['/personales', 'add']" class="btn btn-info waves-effect waves-light">
         <span class="btn-label">
           <i class="fa fa-plus"></i>
         </span> Registra el primero
@@ -30,7 +29,8 @@
 
 <div class="row" *ngIf="personales.length > 0">
   <div class="col-md-6 col-lg-6 col-xlg-4" *ngFor="let personal of personales">
-    <div class="card card-body pointerCourser" (click)="editarPersonal(personal);">
+    <!-- (click)="editarPersonal(personal);" -->
+    <div class="card card-body pointerCourser">
       <div class="row">
         <div class="col-md-4 col-lg-3 text-center">
           <a>

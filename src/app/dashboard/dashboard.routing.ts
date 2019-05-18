@@ -1,3 +1,4 @@
+import { CargaAcademicaComponent } from './carga-academica/carga-academica.component';
 import { Routes } from '@angular/router';
 
 // Perfiles y usuarios
@@ -16,6 +17,7 @@ import { personalesRouting } from './personales/personales.routing';
 // Sucursales
 import { sucursalesRouting } from './sucursales/sucursales.routing';
 import { SucursalesComponent } from './sucursales/sucursales.component';
+import { cargaAcademicaRouting } from './carga-academica/carga.academica.routing';
 
 export const dashboardRouting: Routes = [
   { path: 'usuarios', component: UsuariosComponent },
@@ -40,6 +42,11 @@ export const dashboardRouting: Routes = [
     path: 'sucursales',
     component: SucursalesComponent,
     children: sucursalesRouting
+  },
+  {
+    path: 'cargas',
+    component: CargaAcademicaComponent,
+    children: cargaAcademicaRouting
   },
   { path: '**', redirectTo: 'perfiles', pathMatch: 'full' },
 ];

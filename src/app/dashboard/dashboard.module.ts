@@ -29,6 +29,9 @@ import { HorariosComponent } from './horarios/horarios.component';
 import { SucursalesComponent } from './sucursales/sucursales.component';
 import { SucursalesListComponent } from './sucursales/sucursales-list/sucursales-list.component';
 import { EmptyComponent } from './empty/empty.component';
+import { CargaAcademicaComponent } from './carga-academica/carga-academica.component';
+import { CargaEmpyComponent } from './carga-academica/carga-empy/carga-empy.component';
+import { CargaNuevaComponent } from './carga-academica/carga-nueva/carga-nueva.component';
 
 const routes: Routes = [
   {
@@ -54,7 +57,10 @@ const routes: Routes = [
     HorariosComponent,
     SucursalesComponent,
     SucursalesListComponent,
-    EmptyComponent
+    EmptyComponent,
+    CargaAcademicaComponent,
+    CargaEmpyComponent,
+    CargaNuevaComponent
   ],
   imports: [
     NgbModule,

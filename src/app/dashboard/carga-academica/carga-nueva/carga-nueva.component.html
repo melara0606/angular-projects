@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="card m-n">
+      <div class="card-body">
+        <h4 class="card-title">Crear Carga academica</h4>
+        <form class="m-t-40 row" [formGroup]="forma">
+          <div class="form-group col-md-4 m-t-20">
+            <label class="control-label">Tipo Horario: *</label>
+            <select class="form-control" formControlName="type_horario">
+              <option value="INTENSIVO">INTENSIVO</option>
+              <option value="SEMANAL">SEMANAL</option>
+              <option value="NOCTURNO">NOCTURNO</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4 m-t-20">
+            <label class="control-label">Horario: *</label>
+            <select class="form-control" formControlName="horario">
+              <option [value]="item.id" *ngFor="let item of horarios">
+                {{ item.nombre }} [{{item.timeEntrada}}-{{ item.timeSalida }}]
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-4 m-t-20">
+            <label class="control-label">Fecha de Inicio: *</label>
+            <input type="text" class="form-control form-control-line" value="col-md-4">
+          </div>
+
+          <div class="form-group col-md-4 m-t-20">
+            <label class="control-label">Niveles: *</label>
+            <select class="form-control" formControlName="nivel">
+              <option [value]="item.id" *ngFor="let item of niveles">{{ item.nombre }}</option>
+            </select>
+          </div>
+          <div class="form-group col-md-4 m-t-20">
+            <label class="control-label">Topics: *</label>
+            <select class="form-control" formControlName="topic">
+              <option value>[Topic]</option>
+              <option [value]="item.id" *ngFor="let item of topics">
+                {{ item.nombre }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-md-3 m-t-20">
+            <input type="text" class="form-control" placeholder="col-md-3">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

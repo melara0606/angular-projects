@@ -34,7 +34,7 @@ import { CargaEmpyComponent } from './carga-academica/carga-empy/carga-empy.comp
 import { CargaNuevaComponent } from './carga-academica/carga-nueva/carga-nueva.component';
 
 import {
-  MatFormFieldModule, MatInputModule, MatIconModule
+  MatFormFieldModule, MatInputModule, MatIconModule, MatSelectModule
 } from '@angular/material';
 
 const routes: Routes = [
@@ -78,11 +78,13 @@ const routes: Routes = [
     StoreModule.forFeature('perfiles', perfilesReducers),
     MatIconModule,
     MatInputModule,
+    MatSelectModule,
     MatFormFieldModule,
   ],
   exports: [
     MatIconModule,
     MatInputModule,
+    MatSelectModule,
     MatFormFieldModule,
   ]
 })

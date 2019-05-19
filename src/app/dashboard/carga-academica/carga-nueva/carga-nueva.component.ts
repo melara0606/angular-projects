@@ -19,6 +19,7 @@ export class CargaNuevaComponent extends Controller implements OnInit {
   public horarios: [] = [];
   public niveles: any[] = [];
   public topics: any[] = [];
+  public typeHorario: any = ['INTENSIVO', 'SEMANAL', 'NOCTURNO'];
   public cargaAcademica: CargaAcademica;
 
   constructor(
@@ -40,12 +41,16 @@ export class CargaNuevaComponent extends Controller implements OnInit {
     this.forma.controls['type_horario'].valueChanges.subscribe(value => {
       if (value) {
         this.cargaAcademicaService.getHorario(value).subscribe(values => this.horarios = values);
+      } else {
+        this.horarios = [];
       }
     });
 
     this.forma.controls['nivel'].valueChanges.subscribe(value => {
       if (value) {
         this.cargaAcademicaService.getNivelTopics(value).subscribe(values => this.topics = values);
+      } else {
+        this.topics = [];
       }
     });
   }

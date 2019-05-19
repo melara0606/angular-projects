@@ -2,44 +2,69 @@
   <div class="row">
     <div class="card m-n">
       <div class="card-body">
-        <h4 class="card-title">Crear Carga academica</h4>
+        <h2 class="card-title">Nueva carga</h2>
         <form class="m-t-40 row" [formGroup]="forma">
-          <div class="form-group col-md-4 m-t-20">
-            <label class="control-label">Tipo Horario: *</label>
-            <select class="form-control" formControlName="type_horario">
-              <option value="INTENSIVO">INTENSIVO</option>
-              <option value="SEMANAL">SEMANAL</option>
-              <option value="NOCTURNO">NOCTURNO</option>
-            </select>
-          </div>
-          <div class="form-group col-md-4 m-t-20">
-            <label class="control-label">Horario: *</label>
-            <select class="form-control" formControlName="horario">
-              <option [value]="item.id" *ngFor="let item of horarios">
+          <!-- Tipo de Horario -->
+          <mat-form-field class="form-group col-md-4 m-t-20">
+            <mat-label>Tipo de Horario: </mat-label>
+            <mat-select formControlName="type_horario" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let type of typeHorario" [value]="type">
+                {{type}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="forma.get('type_horario').hasError('required')">
+              Porfavor selecciona un tipo de horario!
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Horario -->
+          <mat-form-field class="form-group col-md-4 m-t-20">
+            <mat-label>Horario: </mat-label>
+            <mat-select formControlName="horario" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of horarios" [value]="item.id">
                 {{ item.nombre }} [{{item.timeEntrada}}-{{ item.timeSalida }}]
-              </option>
-            </select>
-          </div>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="forma.get('horario').hasError('required')">
+              Porfavor selecciona un horario
+            </mat-error>
+          </mat-form-field>
+
           <div class="form-group col-md-4 m-t-20">
             <label class="control-label">Fecha de Inicio: *</label>
             <input type="text" class="form-control form-control-line" value="col-md-4">
           </div>
 
-          <div class="form-group col-md-4 m-t-20">
-            <label class="control-label">Niveles: *</label>
-            <select class="form-control" formControlName="nivel">
-              <option [value]="item.id" *ngFor="let item of niveles">{{ item.nombre }}</option>
-            </select>
-          </div>
-          <div class="form-group col-md-4 m-t-20">
-            <label class="control-label">Topics: *</label>
-            <select class="form-control" formControlName="topic">
-              <option value>[Topic]</option>
-              <option [value]="item.id" *ngFor="let item of topics">
+          <!-- Niveles -->
+          <mat-form-field class="form-group col-md-4 m-t-20">
+            <mat-label>Niveles: </mat-label>
+            <mat-select formControlName="nivel" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of niveles" [value]="item.id">
                 {{ item.nombre }}
-              </option>
-            </select>
-          </div>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="forma.get('nivel').hasError('required')">
+              Porfavor selecciona un nivel para la carga academica
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Topics -->
+          <mat-form-field class="form-group col-md-4 m-t-20">
+            <mat-label>Topics: </mat-label>
+            <mat-select formControlName="topic" required>
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let item of topics" [value]="item.id">
+                {{ item.nombre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="forma.get('nivel').hasError('required')">
+              Porfavor selecciona un topic para la carga academica
+            </mat-error>
+          </mat-form-field>
+        
           <div class="form-group col-md-3 m-t-20">
             <input type="text" class="form-control" placeholder="col-md-3">
           </div>

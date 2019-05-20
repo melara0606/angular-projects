@@ -1,10 +1,1 @@
-<!-- <router-outlet></router-outlet> -->
-
-<button (click)="add()">Add</button>
-<h3>{{ count$ | async }}</h3>
-<ul>
-  <li *ngFor="let item of listLesson$ | async">
-    <h2>{{ item.id }} -- {{ item.duration }} </h2>
-    <p>{{ item.description }}</p>
-  </li>
-</ul>
+<router-outlet></router-outlet>
